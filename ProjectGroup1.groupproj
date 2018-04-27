@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{7A30412A-7F93-4B88-BFEF-A9C69A43A337}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="amqp.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\Chat\Chat.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="amqp">
+        <MSBuild Projects="amqp.dproj"/>
+    </Target>
+    <Target Name="amqp:Clean">
+        <MSBuild Projects="amqp.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="amqp:Make">
+        <MSBuild Projects="amqp.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Chat">
+        <MSBuild Projects="..\Chat\Chat.dproj"/>
+    </Target>
+    <Target Name="Chat:Clean">
+        <MSBuild Projects="..\Chat\Chat.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Chat:Make">
+        <MSBuild Projects="..\Chat\Chat.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="amqp;Chat"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="amqp:Clean;Chat:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="amqp:Make;Chat:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
